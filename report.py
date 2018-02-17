@@ -50,7 +50,7 @@ class Report(object):
 
         print("Top 3 articles:")
         for r in results:
-            print('\t"{}" - {} views'.format(*r))
+            print('"{}" - {} views'.format(*r))
 
     def top_authors(self):
         sql_top_authors = """
@@ -67,9 +67,9 @@ class Report(object):
         self.db.query(sql_top_authors)
         results = self.db.fetchall()
 
-        print('Top authors:')
+        print('\nTop authors:')
         for r in results:
-            print('\t{} - {} views'.format(*r))
+            print('{} - {} views'.format(*r))
 
     def top_days_with_errors(self):
         sql_days_errors = """
@@ -84,11 +84,11 @@ class Report(object):
         self.db.query(sql_days_errors)
         results = self.db.fetchall()
 
-        print('Days with more than 1% of requests with errors:')
+        print('\nDays with more than 1% of requests with errors:')
         for r in results:
-            print('\t{} - {:.2}% errors'.format(*r))
+            print('{} - {:.2}% errors'.format(*r))
 
-    def get_report(self):
+    def print_report(self):
         self.top_articles()
         self.top_authors()
         self.top_days_with_errors()
@@ -96,4 +96,5 @@ class Report(object):
 
 if __name__ == '__main__':
     report = Report()
-    report.get_report()
+    print('Log Analysis Report\n')
+    report.print_report()
