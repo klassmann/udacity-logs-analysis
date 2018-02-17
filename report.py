@@ -72,7 +72,21 @@ class Report(object):
             print('\t{} - {} views'.format(*r))
 
     def top_days_with_errors(self):
-        pass
+        sql_days_errors = """
+        SELECT date(time) as dt, (100.0 * error_log.qtd / request_log.qtd) AS perc FROM log 
+            JOIN (select date(time) AS de, count(*) AS qtd FROM log WHERE status != '200 OK' GROUP BY de) AS error_log
+            ON date(log.time) = error_log.de
+            JOIN (SELECT date(time) AS ds, count(*) AS qtd from log group by ds) AS request_log
+            ON date(log.time) = request_log.ds
+            WHERE ((100.0 * error_log.qtd) / request_log.qtd) > 1.0
+            GROUP BY dt, perc;
+        """
+        self.db.query(sql_days_errors)
+        results = self.db.fetchall()
+
+        print('Days with more than 1% of requests with errors:')
+        for r in results:
+            print('\t{} - {:.2}% errors'.format(*r))
 
     def get_report(self):
         self.top_articles()
