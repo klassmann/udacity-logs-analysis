@@ -18,6 +18,12 @@ The program will output a report for the following questions:
 - Top Author, the most popular authors
 - Request with errors, The days with more than 1% of error on page requests.
 
+## Example
+![Sample](sample.png)
+
+You can also find an example of output in [sample_output.txt](sample_output.txt)
+
+
 ## Extra Information
 
 This project was tested with:
