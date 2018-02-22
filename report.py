@@ -1,10 +1,18 @@
 #!/usr/bin/env python3
 
-import psycopg2
+try:
+    import psycopg2
+except:
+    print("You need to install the dependencies from requirements.txt")
+    exit(-1)
 
 CONNECTION_STRING = 'dbname=news'
 
 class Database(object):
+    """
+    Database helper class
+    Use this to handle the connection and query execution
+    """
     def __init__(self, conn_string):
         self.connection = psycopg2.connect(conn_string)
 
@@ -33,8 +41,11 @@ class Database(object):
         self.connection.close()
 
 
-
 class Report(object):
+    """
+    Report
+    Main code for processing the data for the report
+    """
     def __init__(self):
         self.db = Database(CONNECTION_STRING)
         

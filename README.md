@@ -16,7 +16,7 @@ The program will output a report for the following questions:
 
 - Top Articles, the 3 most viewed articles
 - Top Author, the most popular authors
-- Request with errors, The days with more than 1% of error on page requests.
+- Requests with errors, The days with more than 1% of error on page requests.
 
 ## Example
 ![Sample](sample.png)
