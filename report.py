@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+from datetime import datetime
+from datetime import time
+
 try:
     import psycopg2
 except:
@@ -83,6 +86,12 @@ class Report(object):
         for r in results:
             print('{} - {} views'.format(*r))
 
+
+    def _conv_date(self, d):
+        dt = datetime.combine(d, time(0,0,0))
+        fmt = dt.strftime('%B %d, %Y')
+        return fmt
+
     def top_days_with_errors(self):
         sql_days_errors = """
         SELECT date(time) as dt, (100.0 * error_log.qtd / request_log.qtd) AS perc FROM log 
@@ -98,7 +107,9 @@ class Report(object):
 
         print('\nDays with more than 1% of requests with errors:')
         for r in results:
-            print('{} - {:.2}% errors'.format(*r))
+            dt = self._conv_date(r[0])
+            perc = r[1]
+            print('{} - {:.2}% errors'.format(dt, perc))
 
     def print_report(self):
         self.top_articles()
