@@ -12,4 +12,4 @@ Anonymous Contributor - 170098 views
 Markoff Chaney - 84557 views
 
 Days with more than 1% of requests with errors:
-2016-07-17 - 2.3% errors
+July 17, 2016 - 2.3% errors
