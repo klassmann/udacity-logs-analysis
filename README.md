@@ -13,7 +13,7 @@ Report generator for Udacity FSWD Logs Analysis Project
 I assume that you have PostgreSQL and know how to restore the database.
 
 ### Clone this repository
-You will need the **report.py** and the queries inside the **queries/** folder.
+You will need the **report.py** and the **requirements.txt**.
 
     $ git clone https://github.com/klassmann/udacity-logs-analysis.git
 
