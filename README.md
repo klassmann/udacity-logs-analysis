@@ -8,7 +8,7 @@ Report generator for Udacity FSWD Logs Analysis Project
 - [The news Database from Udacity](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip)
 
 ### Install dependency packages
-    pip3 install -r requirements.txt
+    $ pip3 install -r requirements.txt
 
 
 ## Usage
