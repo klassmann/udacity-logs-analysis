@@ -14,8 +14,8 @@ CONNECTION_STRING = 'dbname=news'
 
 
 SQL_ARTICLES = """
-SELECT title, qtd FROM articles a INNER JOIN 
-    (SELECT path, count(*) AS qtd FROM log GROUP BY path) AS l 
+SELECT title, qtd FROM articles a INNER JOIN
+    (SELECT path, count(*) AS qtd FROM log GROUP BY path) AS l
     ON '/article/' || a.slug = l.path
 ORDER BY qtd DESC
 LIMIT 3;
@@ -23,9 +23,9 @@ LIMIT 3;
 
 SQL_AUTHORS = """
 SELECT name, qtd FROM authors a INNER JOIN (
-    SELECT author, count(*) as qtd FROM 
-        articles a INNER JOIN 
-            (SELECT path FROM log) AS l 
+    SELECT author, count(*) as qtd FROM
+        articles a INNER JOIN
+            (SELECT path FROM log) AS l
             ON '/article/' || a.slug = l.path
             GROUP BY author
     ) AS qry_article ON qry_article.author = a.id
@@ -33,23 +33,17 @@ ORDER BY qtd DESC;
 """
 
 SQL_DAYS_ERRORS = """
-SELECT date(time) as dt, 
-(100.0 * error_log.qtd / request_log.qtd) AS perc 
-FROM log 
-JOIN (select date(time) AS de, 
-        count(*) AS qtd 
-        FROM log 
-        WHERE status != '200 OK' 
-        GROUP BY de) AS error_log
-ON date(log.time) = error_log.de
-JOIN (SELECT date(time) AS ds, 
-        count(*) AS qtd 
-        FROM log 
-        GROUP BY ds) AS request_log
-ON date(log.time) = request_log.ds
+SELECT date(time) as dt,
+(100.0 * error_log.qtd / request_log.qtd) AS perc
+    FROM log
+    JOIN (SELECT date(time) AS de, count(*) AS qtd
+            FROM log WHERE status != '200 OK' GROUP BY de) AS error_log
+    ON date(log.time) = error_log.de
+    JOIN (SELECT date(time) AS ds, count(*) AS qtd
+        FROM log GROUP BY ds) AS request_log
+    ON date(log.time) = request_log.ds
 WHERE ((100.0 * error_log.qtd) / request_log.qtd) > 1.0
-GROUP BY dt, perc;
-"""
+GROUP BY dt, perc;"""
 
 
 class Database(object):
